@@ -30,26 +30,23 @@ var CellNeighbours = {
 }
 
 // Maze global data
+var context;	// An object that provides methods and properties for drawing on the maze canvas
 var cellSize = 10, cellSpacing = 3, numCellsHorizontally = 10, numCellsVertically = 10;
 var cells; // Bookkeeping for the cells which were added to the minimum spanning tree. Also defines the neighbours of each cells
 
 // Keeps track of the current position of the player in the maze
 var current_x, current_y;
    
-window.addEventListener('keyup', keyUpHandler, true);
 document.getElementsByName('NewMazeButton')[0].addEventListener("click", function(){
-   var context = document.getElementById('Maze').getContext("2d");
-   alert(numCellsHorizontally*(cellSize+cellSpacing));
-   context.clearRect(0,0,numCellsHorizontally*(cellSize+cellSpacing),numCellsVertically*(cellSize+cellSpacing));
+   var canvas = document.getElementById('Maze');
+   document.body.removeChild(canvas);
    initGlobalVariables();
    drawLabyrinth();
 });
 
 initGlobalVariables();
 drawLabyrinth();
-
-function clearCanvas() {
-}
+window.addEventListener('keyup', keyUpHandler, true);
 
 function initGlobalVariables() {
    cells = [];
@@ -60,7 +57,7 @@ function initGlobalVariables() {
 }
 
 function drawLabyrinth(){
-   var context = initCanvas(cellSize, cellSpacing, numCellsHorizontally, numCellsVertically);
+   context = initCanvas(cellSize, cellSpacing, numCellsHorizontally, numCellsVertically);
    
    var numCells = numCellsHorizontally*numCellsVertically; 
    for(i=0; i<numCells; ++i)
